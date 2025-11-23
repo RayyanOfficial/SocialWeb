@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialWeb - Connect with Friends</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-logo">SocialWeb</div>
+            <p class="auth-subtitle">Log in to connect with friends and the world around you</p>
+            
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <input type="email" id="login-email" class="form-input" placeholder="Email address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-password" class="form-input" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+            
+            <div id="login-message" class="message" style="display: none;"></div>
+            
+            <div class="auth-divider"><span>or</span></div>
+            
+            <button class="btn btn-secondary" onclick="showSignupPage()">Create New Account</button>
+            
+            <div class="auth-switch">
+                Don't have an account? <a href="#" onclick="showSignupPage()">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Page -->
+    <div id="signup-page" class="auth-container" style="display: none;">
+        <div class="auth-card">
+            <div class="auth-logo">SocialWeb</div>
+            <p class="auth-subtitle">Sign up to connect with friends and the world around you</p>
+            
+            <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                    <input type="text" id="signup-name" class="form-input" placeholder="Full name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signup-email" class="form-input" placeholder="Email address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signup-password" class="form-input" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signup-confirm-password" class="form-input" placeholder="Confirm password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            
+            <div id="signup-message" class="message" style="display: none;"></div>
+            
+            <div class="auth-divider"><span>or</span></div>
+            
+            <button class="btn btn-outline" onclick="showLoginPage()">Already have an account?</button>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app-container" class="app-container">
+        <!-- Navigation -->
+        <div class="nav-container">
+            <div class="container">
+                <div class="nav-content">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <div class="nav-logo">SocialWeb</div>
+                    
+                    <div class="nav-search">
+                        <input type="text" placeholder="Search SocialConnect" id="global-search">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <div class="nav-icons">
+                        <div class="nav-icon active">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="nav-icon" id="friend-requests-icon">
+                            <i class="fas fa-user-friends"></i>
+                            <span class="notification-badge" id="friend-requests-badge">0</span>
+                        </div>
+                        <div class="nav-icon" onclick="showCreatePostModal()">
+                            <i class="fas fa-plus-square"></i>
+                        </div>
+                        <div class="nav-icon" onclick="showNotifications()">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notifications-badge">0</span>
+                        </div>
+                        
+                        <div class="night-mode-toggle" onclick="toggleNightMode()">
+                            <i class="fas" id="night-mode-icon"></i>
+                            <div class="toggle-switch" id="night-mode-toggle">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="nav-profile" onclick="toggleProfileDropdown()">
+                            <img src="" alt="Profile" class="profile-img" id="nav-profile-img">
+                            <span class="profile-name" id="nav-profile-name">User Name</span>
+                            
+                            <div class="profile-dropdown" id="profile-dropdown">
+                                <div class="profile-dropdown-item" onclick="toggleNightMode()">
+                                    <i class="fas" id="dropdown-night-icon"></i>
+                                    <span id="dropdown-night-text">Night Mode</span>
+                                </div>
+                                <div class="profile-dropdown-item" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Logout</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container">
+            <div class="main-content">
+                <!-- Left Sidebar -->
+                <div class="sidebar" id="mobile-sidebar">
+                    <div class="sidebar-section">
+                        <div class="sidebar-item active">
+                            <div class="sidebar-icon"><i class="fas fa-home"></i></div>
+                            <div class="sidebar-text">News Feed</div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div class="sidebar-icon"><i class="fas fa-user-friends"></i></div>
+                            <div class="sidebar-text">Friends</div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                            <div class="sidebar-text">Groups</div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div class="sidebar-icon"><i class="fas fa-store"></i></div>
+                            <div class="sidebar-text">Marketplace</div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div class="sidebar-icon"><i class="fas fa-video"></i></div>
+                            <div class="sidebar-text">Watch</div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Your Shortcuts</div>
+                        <div class="sidebar-item">
+                            <div class="sidebar-icon"><i class="fas fa-gamepad"></i></div>
+                            <div class="sidebar-text">Games</div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div class="sidebar-icon"><i class="fas fa-bookmark"></i></div>
+                            <div class="sidebar-text">Saved</div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div class="sidebar-icon"><i class="fas fa-calendar"></i></div>
+                            <div class="sidebar-text">Events</div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div class="sidebar-icon"><i class="fas fa-flag"></i></div>
+                            <div class="sidebar-text">Pages</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feed -->
+                <div class="feed" id="feed">
+                    <!-- Feed Controls -->
+                    <div class="feed-controls">
+                        <div class="feed-search">
+                            <input type="text" placeholder="Search posts..." id="feed-search">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="feed-filter">
+                            <select class="filter-select" id="sort-filter">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="most-liked">Most Liked</option>
+                                <option value="most-commented">Most Commented</option>
+                            </select>
+                            <select class="filter-select" id="privacy-filter">
+                                <option value="all">All Posts</option>
+                                <option value="public">Public Only</option>
+                                <option value="friends">Friends Only</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Create Post -->
+                    <div class="create-post">
+                        <div class="create-post-header">
+                            <img src="" alt="Profile" class="create-post-avatar" id="create-post-avatar">
+                            <input type="text" class="create-post-input" placeholder="What's on your mind?" onclick="showCreatePostModal()">
+                        </div>
+                        <div class="create-post-actions">
+                            <div class="post-action" onclick="showCreatePostModal()">
+                                <i class="fas fa-video" style="color: #f02849;"></i>
+                                <div class="post-action-text">Live Video</div>
+                            </div>
+                            <div class="post-action" onclick="showImageUrlInput()">
+                                <i class="fas fa-images" style="color: #45bd62;"></i>
+                                <div class="post-action-text">Photo/Video</div>
+                            </div>
+                            <div class="post-action" onclick="showCreatePostModal()">
+                                <i class="fas fa-laugh-beam" style="color: #f7b928;"></i>
+                                <div class="post-action-text">Feeling/Activity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Posts will be dynamically added here -->
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="right-sidebar">
+                    <div class="friend-requests">
+                        <div class="sidebar-title">Friend Requests</div>
+                        <div id="friend-requests-list">
+                            <!-- Friend requests will be dynamically added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Find Friends</div>
+                        <div id="suggested-friends">
+                            <!-- Suggested friends will be dynamically added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Birthdays</div>
+                        <div class="sidebar-item">
+                            <div class="sidebar-icon"><i class="fas fa-birthday-cake" style="color: #f02849;"></i></div>
+                            <div class="sidebar-text">No birthdays today.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Contacts</div>
+                        <div id="contacts-list">
+                            <!-- Contacts will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div id="create-post-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create Post</h2>
+                <button class="modal-close" onclick="closeCreatePostModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="create-post-header" style="padding: 0; margin-bottom: 16px;">
+                    <img src="" alt="Profile" class="create-post-avatar" id="modal-profile-img">
+                    <div>
+                        <div id="modal-profile-name" style="font-weight: 600;">User Name</div>
+                        <div style="font-size: 13px; color: var(--text-light);">
+                            <select id="post-privacy" style="border: none; background: none; font-size: 13px; color: var(--text-light);">
+                                <option value="public">Public</option>
+                                <option value="friends">Friends</option>
+                                <option value="only-me">Only me</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="position: relative;">
+                    <textarea id="post-content" placeholder="What's on your mind?" style="width: 100%; height: 120px; border: none; resize: none; font-size: 16px; padding: 0; margin-bottom: 16px;" oninput="autoResizeTextarea(this)"></textarea>
+                    
+                    <!-- Emoji Picker -->
+                    <div class="emoji-picker" id="emoji-picker">
+                        <button type="button" class="emoji-btn" onclick="addEmoji('😊')">😊</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('😂')">😂</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('❤️')">❤️</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('😍')">😍</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('👍')">👍</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('🎉')">🎉</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('🔥')">🔥</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('🙏')">🙏</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('😎')">😎</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('🤔')">🤔</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('👏')">👏</button>
+                        <button type="button" class="emoji-btn" onclick="addEmoji('💯')">💯</button>
+                    </div>
+                </div>
+                
+                <!-- URL Image Input Section -->
+                <div class="url-input-section" id="url-input-section">
+                    <div class="url-input-group">
+                        <input type="url" class="url-input" id="image-url" placeholder="Paste image URL here...">
+                        <button class="btn btn-primary" onclick="loadImageFromUrl()">Load Image</button>
+                    </div>
+                    <div class="url-preview" id="url-preview">
+                        <img id="url-image-preview" src="" alt="Image preview">
+                    </div>
+                </div>
+                
+                <div style="border: 1px solid var(--border-light); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-weight: 500;">Add to your post</span>
+                        <button type="button" class="btn btn-outline btn-small" onclick="toggleEmojiPicker(event)">
+                            <i class="fas fa-smile"></i> Emoji
+                        </button>
+                    </div>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <div class="post-action" onclick="toggleUrlInput()">
+                            <i class="fas fa-images" style="color: #45bd62;"></i>
+                            <span>Photo/Video</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-user-tag" style="color: #1877f2;"></i>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-laugh-beam" style="color: #f7b928;"></i>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-map-marker-alt" style="color: #f02849;"></i>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-ellipsis-h" style="color: var(--text-light);"></i>
+                        </div>
+                    </div>
+                </div>
+                <div id="post-image-preview" style="display: none; margin-bottom: 16px;">
+                    <img id="post-image" style="width: 100%; border-radius: 8px; max-height: 300px; object-fit: cover;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" style="width: 100%;" onclick="createPost()">Post</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
